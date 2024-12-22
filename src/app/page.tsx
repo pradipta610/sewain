@@ -1,101 +1,200 @@
-import Image from "next/image";
+import { Category } from "@/components/category/page";
+import { Product } from "@/components/product/page";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const products = [
+    {
+      id: "1",
+      image: "https://via.placeholder.com/150",
+      title: "Kamera DSLR",
+      rating: 4.5,
+      ratingText: "Sangat Bagus",
+      price: "Rp 250.000",
+      rented: 20,
+      link: "/"
+    },
+    {
+      id: "2",
+      image: "https://via.placeholder.com/150",
+      title: "Drone",
+      rating: 4.8,
+      ratingText: "Terbaik",
+      price: "Rp 500.000",
+      rented: 15,
+      link: "/"
+    },
+    {
+      id: "3",
+      image: "https://via.placeholder.com/150",
+      title: "Laptop Gaming",
+      rating: 4.3,
+      ratingText: "Bagus",
+      price: "Rp 1.500.000",
+      rented: 10,
+      link: "/"
+    },
+    {
+      id: "4",
+      image: "https://via.placeholder.com/150",
+      title: "Tripod Kamera",
+      rating: 4.7,
+      ratingText: "Sangat Memuaskan",
+      price: "Rp 100.000",
+      rented: 25,
+      link: "/"
+    },
+    {
+      id: "5",
+      image: "https://via.placeholder.com/150",
+      title: "Lampu Studio",
+      rating: 4.6,
+      ratingText: "Cerah",
+      price: "Rp 200.000",
+      rented: 18,
+      link: "/"
+    },
+    {
+      id: "6",
+      image: "https://via.placeholder.com/150",
+      title: "Mikrofon Podcast",
+      rating: 4.9,
+      ratingText: "Kualitas Suara Bagus",
+      price: "Rp 300.000",
+      rented: 22,
+      link: "/"
+    },
+    {
+      id: "7",
+      image: "https://via.placeholder.com/150",
+      title: "Smartphone Gimbal",
+      rating: 4.4,
+      ratingText: "Stabil",
+      price: "Rp 250.000",
+      rented: 12,
+      link: "/"
+    },
+    {
+      id: "8",
+      image: "https://via.placeholder.com/150",
+      title: "Action Camera",
+      rating: 4.7,
+      ratingText: "Cocok untuk Outdoor",
+      price: "Rp 450.000",
+      rented: 19,
+      link: "/"
+    },
+    {
+      id: "9",
+      image: "https://via.placeholder.com/150",
+      title: "Monitor 4K",
+      rating: 4.8,
+      ratingText: "Super Jernih",
+      price: "Rp 800.000",
+      rented: 8,
+      link: "/"
+    },
+    {
+      id: "10",
+      image: "https://via.placeholder.com/150",
+      title: "Projector",
+      rating: 4.5,
+      ratingText: "Tajam",
+      price: "Rp 600.000",
+      rented: 17,
+      link: "/"
+    },
+    {
+      id: "11",
+      image: "https://via.placeholder.com/150",
+      title: "Printer Laser",
+      rating: 4.2,
+      ratingText: "Ekonomis",
+      price: "Rp 550.000",
+      rented: 9,
+      link: "/"
+    },
+    {
+      id: "12",
+      image: "https://via.placeholder.com/150",
+      title: "Tablet Desain",
+      rating: 4.8,
+      ratingText: "Sangat Responsif",
+      price: "Rp 1.000.000",
+      rented: 6,
+      link: "/"
+    },
+  ];
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+  const category = [
+    {
+      id: "1",
+      image: "https://images.unsplash.com/photo-1617854818583-09e7f077a156?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      title: "Kamera DSLR",
+      price: "Rp 250.000",
+      quantity: 20,
+      link: "/",
+    },
+    {
+      id: "2",
+      image: "https://via.placeholder.com/150",
+      title: "Drone",
+      price: "Rp 500.000",
+      quantity: 15,
+      link: "/",
+    },
+    {
+      id: "3",
+      image: "https://via.placeholder.com/150",
+      title: "Laptop Gaming",
+      price: "Rp 1.500.000",
+      quantity: 10,
+      link: "/",
+    },
+    {
+      id: "4",
+      image: "https://via.placeholder.com/150",
+      title: "Tripod Kamera",
+      price: "Rp 100.000",
+      quantity: 25,
+      link: "/",
+    },
+    {
+      id: "5",
+      image: "https://via.placeholder.com/150",
+      title: "Lampu Studio",
+      price: "Rp 200.000",
+      quantity: 18,
+      link: "/",
+    },
+    {
+      id: "6",
+      image: "https://via.placeholder.com/150",
+      title: "Mikrofon Podcast",
+      price: "Rp 300.000",
+      quantity: 22,
+      link: "/",
+    },
+    {
+      id: "7",
+      image: "https://via.placeholder.com/150",
+      title: "Smartphone Gimbal",
+      price: "Rp 250.000",
+      quantity: 12,
+      link: "/",
+    },
+    {
+      id: "8",
+      image: "https://via.placeholder.com/150",
+      title: "Action Camera",
+      price: "Rp 450.000",
+      quantity: 19,
+      link: "/",
+    },
+  ];
+  return (
+    <>
+      <Category categories={category} />
+      <Product products={products} />
+    </>
   );
 }
