@@ -43,7 +43,7 @@ export function Product({ products }: ProductProps) {
                                     <span className="ml-2 text-gray-500">{product.ratingText}</span>
                                 </div>
                                 <Separator className="my-2" />
-                                <div className="flex justify-between items-center text-sm text-gray-600 justify-between">
+                                <div className="flex justify-between items-center text-sm text-gray-600">
                                     <span className="font-semibold text-gray-800">{product.price}</span>
                                     <span>{product.rented}x disewa</span>
                                 </div>

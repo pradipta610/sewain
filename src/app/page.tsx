@@ -1,5 +1,5 @@
-import { Category } from "@/components/category/page";
-import { Product } from "@/components/product/page";
+import { Category } from "@/components/category/index";
+import { Product } from "@/components/product/index";
 
 export default function Home() {
   const products = [
