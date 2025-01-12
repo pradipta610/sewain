@@ -1,6 +1,7 @@
 // components/Product.tsx
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import Image from "next/image";
 import Link from "next/link";
 
 interface ProductProps {
@@ -30,9 +31,11 @@ export function Product({ products }: ProductProps) {
                     <Card key={product.id} className="shadow-sm hover:shadow-md transition">
                         <Link href={product.link}>
                             <CardHeader className="p-0">
-                                <img
+                                <Image
                                     src={product.image}
                                     alt={product.title}
+                                    width={100}
+                                    height={100}
                                     className="w-full h-32 object-cover rounded-t"
                                 />
                             </CardHeader>
