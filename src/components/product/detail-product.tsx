@@ -1,10 +1,16 @@
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
-
+import {
+    Carousel,
+    CarouselContent,
+    CarouselItem,
+} from "@/components/ui/carousel";
+import { IoChatbubbleEllipsesOutline } from "react-icons/io5";
+import { MdEmojiPeople } from "react-icons/md";
 interface ProductDetailProps {
     productdetail: {
         id: string;
-        image: string;
+        image: Array<string>;
         title: string;
         rating: number;
         ratingText: string;
@@ -22,46 +28,114 @@ export function ProductDetail({ productdetail }: ProductDetailProps) {
                 {/* Image and Gallery */}
                 <div>
                     <img
-                        src={productdetail.image}
+                        src={productdetail.image[0]}
                         alt={productdetail.title}
                         className="w-full h-auto rounded shadow-sm"
                     />
-                    {/* <div className="flex space-x-2 mt-4">
-            {productdetail.image.map((img, index) => (
-              <img
-                key={index}
-                src={img}
-                alt={`Gallery ${index}`}
-                className="w-16 h-16 object-cover rounded border"
-              />
-            ))}
-          </div> */}
+                    <div className="flex space-x-2 mt-4">
+                        <Carousel className="w-full ">
+                            <CarouselContent className="-ml-1">
+                                {productdetail.image.slice(0).map((img, index) => (
+                                    <CarouselItem key={index} className="pl-1 basis-1/3 md:basis-1/4 lg:basis-1/5">
+                                        <div className="p-1">
+                                            <img
+                                                key={index}
+                                                src={img}
+                                                alt={`Gallery ${index}`}
+                                                className="w-100 h-100 object-cover rounded border"
+                                            />
+                                        </div>
+                                    </CarouselItem>
+                                ))}
+                            </CarouselContent>
+                        </Carousel>
+                    </div>
                 </div>
 
                 {/* Product Info */}
                 <div>
                     <h1 className="text-3xl font-bold mb-2">{productdetail.title}</h1>
-                    <div className="flex flex-row gap-8 flex-wrap items-start mb-4">
-                        <div className="flex flex-col items-start mb-4">
-                            <span className="text-yellow-500 font-semibold text-base">Arif Brata</span>
+                    {/* desktop */}
+                    <div className="flex flex-col gap-1 flex-wrap items-start">
+                        <div className="hidden flex-row gap-8 items-start lg:flex">
+                            <div className="flex flex-col items-start ">
+                                <span className="text-indigo-600 font-semibold text-base">Arif Brata</span>
+                                <span className="text-gray-500 text-xs">Aktif 10 Menit Lalu</span>
+
+                            </div>
+                            <div className="flex flex-col items-start">
+                                <div className="flex flex-row  justify-between items-start">
+                                    <span className="text-gray-500 text-sm">Penilaian</span>
+                                    <span className="text-indigo-600 text-sm">1 Rb</span>
+                                </div>
+                                <div className="flex flex-row gap-4 justify-between items-start">
+                                    <span className="text-gray-500 text-sm">Jasa</span>
+                                    <span className="text-indigo-600 text-sm">10</span>
+                                </div>
+                            </div>
+                            <div className="flex flex-col items-start mb-4">
+                                <div className="flex flex-row gap-4 items-start">
+                                    <span className="text-gray-500 text-sm">Persentase Chat Dibalas</span>
+                                    <span className="text-indigo-600 text-sm">87%</span>
+                                </div>
+                                <div className="flex flex-row gap-4 items-start">
+                                    <span className="text-gray-500 text-sm">Waktu Chat Dibalas</span>
+                                    <span className="text-indigo-600 text-sm">1 Jam</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="flex flex-row gap-1 my-2 items-start mb-4">
+                            <button
+                                className="px-4 py-1 text-sm gap-2 border border-indigo-600 text-indigo-600 rounded hover:bg-indigo-600 hover:border-indigo-600 hover:text-white transition duration-200 flex items-center"
+                            >
+                                <IoChatbubbleEllipsesOutline />
+                                Chat Sekarang
+                            </button>
+                            <button
+                                className="px-4 py-1 text-sm gap-2 border rounded hover:bg-gray-100 border-gray-400 transition duration-200 flex items-center"
+                            >
+                                <MdEmojiPeople />
+                                Hubungi Penyedia
+                            </button>
+                        </div>
+                    </div>
+
+                    {/* end desktop */}
+                    {/* mobile */}
+                    <div className="flex flex-row gap-1 flex-wrap items-start mb-4">
+                        <div className="flex flex-col items-start mb-4 lg:hidden">
+                            <span className="text-indigo-600 font-semibold text-base">Arif Brata</span>
                             <span className="text-gray-500 text-xs">Aktif 10 Menit Lalu</span>
                             <div className="flex flex-row gap-1 my-2 items-start mb-4">
                                 <button
-                                    className="px-4 py-1 text-sm border rounded hover:bg-gray-100 hover:border-gray-400 transition duration-200"
-                                > Chat Sekarang </button>
+                                    className="px-4 py-1 text-sm gap-2 border border-indigo-600 text-indigo-600 rounded hover:bg-indigo-600 hover:border-indigo-600 hover:text-white transition duration-200 flex items-center"
+                                >
+                                    <IoChatbubbleEllipsesOutline />
+                                    Chat Sekarang
+                                </button>
                                 <button
-                                    className="px-4 py-1 text-sm border rounded hover:bg-gray-100 hover:border-gray-400 transition duration-200"
-                                > Hubungi Penyedia </button>
+                                    className="px-4 py-1 text-sm gap-2 border rounded hover:bg-gray-100 border-gray-400 transition duration-200 flex items-center"
+                                >
+                                    <MdEmojiPeople />
+                                    Hubungi Penyedia
+                                </button>
                             </div>
                         </div>
-                        <div className="flex flex-col items-start mb-4">
-                            <span className="text-yellow-500 font-semibold text-base">Arif Brata</span>
-                            <span className="text-gray-500 text-sm">Aktif 10 Menit Lalu</span>
+                        <div className="flex flex-col items-start mb-4 lg:hidden">
+                            <div className="flex flex-row gap-4 items-start">
+                                <span className="text-gray-500 text-sm">Penilaian</span>
+                                <span className="text-indigo-600 text-sm">1 Rb</span>
+                            </div>
+                            <div className="flex flex-row gap-4 items-start">
+                                <span className="text-gray-500 text-sm">Jasa</span>
+                                <span className="text-indigo-600 text-sm">10</span>
+                            </div>
                         </div>
                     </div>
+                    {/* end mobile */}
                     <div className="flex items-center space-x-2 mb-4">
-                        <span className="text-yellow-500 font-semibold">{productdetail.rating}</span>
-                        <span className="text-gray-500">12 reviews</span>
+                        <span className="text-indigo-600 font-semibold">{productdetail.rating}</span>
+                        <span className="text-gray-500">12 Jasa Review</span>
                     </div>
                     <div className="text-xl font-bold text-red-600 mb-2">{productdetail.price}</div>
                     <div className="text-gray-700 mb-6">Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio sunt a omnis, vero excepturi illo eligendi voluptates delectus, rem nulla, similique sit. Error ducimus laboriosam impedit neque adipisci, quibusdam quis.</div>
