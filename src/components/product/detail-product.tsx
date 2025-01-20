@@ -35,7 +35,16 @@ export function ProductDetail({ productdetail, reviews }: ProductDetailProps) {
     const [activeCategory, setActiveCategory] = useState("Semua");
     const [activedays, setActiveDays] = useState("");
     const [activetime, setActiveTime] = useState(0);
-
+    const classifyRating = (rating) => {
+        if (rating >= 4.5) return "Sangat Bagus";
+        if (rating >= 3.5) return "Bagus";
+        if (rating >= 2.5) return "Cukup";
+        if (rating >= 1.5) return "Kurang";
+        return "Sangat Kurang";
+    };
+    const allRatings = reviews.flatMap(review => review.data.map(item => item.rating));
+    const averageRating = allRatings.length ? (allRatings.reduce((a, b) => a + b, 0) / allRatings.length).toFixed(1) : "0";
+    const ratingClassification = classifyRating(averageRating);
     const activeReviews =
         reviews.find((review) => review.category === activeCategory)?.data || [];
     return (
@@ -266,16 +275,10 @@ export function ProductDetail({ productdetail, reviews }: ProductDetailProps) {
                         <div className="flex flex-col items-start ">
 
                             <div className="product-details">
-                                <h1 className="text-2xl font-bold">Penilaian Produk</h1>
-                                <p className="text-gray-500">{productdetail.price}</p>
-                                <p className="text-yellow-500">
-                                    {"★".repeat(Math.floor(productdetail.rating)) +
-                                        "☆".repeat(5 - Math.ceil(productdetail.rating))}
-                                    <span className="ml-2">{productdetail.ratingText}</span>
-                                </p>
-                            </div>
-                        </div>
-                        {/* Review Filter */}
+                                <h1 className="text-2xl font-bold mb-10">Penilaian Produk</h1>
+                                <h1 className="text-md font-semibold">Keseluruhan Review</h1>
+                                <p className="text-xl text-yellow-500"> {averageRating} / 5 ({ratingClassification})</p>
+                                {/* Review Filter */}
                         <div className="flex flex-col items-start ">
                             <div className="flex space-x-4 my-4">
                                 {reviews.map((reviewCategory) => (
@@ -291,6 +294,14 @@ export function ProductDetail({ productdetail, reviews }: ProductDetailProps) {
                                 ))}
                             </div>
                         </div>
+                                <p className="text-yellow-500">
+                                    {"★".repeat(Math.floor(productdetail.rating)) +
+                                        "☆".repeat(5 - Math.ceil(productdetail.rating))}
+                                    <span className="ml-2">{productdetail.ratingText}</span>
+                                </p>
+                            </div>
+                        </div>
+                        
                     </div>
                 </div>
                 {/* Reviews */}
