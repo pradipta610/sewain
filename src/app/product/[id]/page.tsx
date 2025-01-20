@@ -22,9 +22,45 @@ export default function Home() {
       rented: 20,
       link: "/product/1"
   };
+  const reviews = [
+    {
+      id: "1",
+      category: "Semua",
+      data: [
+        { user: "John", rating: 4.5, comment: "Produk bagus!" },
+        { user: "Jane", rating: 5, comment: "Sangat memuaskan!" },
+        { user: "Doe", rating: 3.5, comment: "Cukup baik." },
+      ],
+    },
+    {
+      id: "2",
+      category: "5 Bintang",
+      data: [{ user: "Jane", rating: 5, comment: "Sangat memuaskan!" }],
+    },
+    {
+      id: "3",
+      category: "4 Bintang",
+      data: [{ user: "John", rating: 4.5, comment: "Produk bagus!" }],
+    },
+    {
+      id: "4",
+      category: "3 Bintang",
+      data: [{ user: "Doe", rating: 3.5, comment: "Cukup baik." }],
+    },
+    {
+      id: "5",
+      category: "1 Bintang",
+      data: [], 
+    },
+    {
+      id: "6",
+      category: "2 Bintang",
+      data: [], 
+    },
+  ];
   return (
     <>
-    <ProductDetail productdetail={product}/>
+    <ProductDetail productdetail={product} reviews={reviews}/>
     </>
   );
 }

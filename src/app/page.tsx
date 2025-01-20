@@ -191,6 +191,8 @@ export default function Home() {
       "link": "/product/8"
     }
   ];
+
+
   return (
     <>
       <Category categories={category} />
