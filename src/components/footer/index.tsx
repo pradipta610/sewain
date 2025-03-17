@@ -2,10 +2,14 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 
-export default function Footer() {
+interface AddClassName {
+  className?: string;
+}
+
+export default function Footer({className}: AddClassName) {
   return (
     <>
-   <footer className="bg-white text-black">
+   <footer className={`bg-white text-black ${className || ""}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         {/* Top Section */}
         <div className="flex flex-col md:flex-row justify-between items-center">
