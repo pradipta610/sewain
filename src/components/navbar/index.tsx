@@ -5,11 +5,14 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Search, Menu, X } from 'lucide-react'
 
-export default function Navbar() {
+interface AddClassName {
+  className?: string; 
+}
+export default function Navbar({className}: AddClassName) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   return (
-    <nav className="bg-white shadow-md">
+    <nav className={`bg-white shadow-md" ${className || ""}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between gap-5 h-16">
           <div className="flex items-center">
@@ -29,7 +32,7 @@ export default function Navbar() {
                 <span className="sr-only">Search</span>
               </Button>
             </div>
-            <Link href="/cart" className="ml-4 flex items-center text-gray-700 hover:text-indigo-600">
+            <Link href="/sign-in" className="ml-4 flex items-center text-gray-700 hover:text-indigo-600">
               <Button variant="outline">Sign In</Button>
             </Link>
           </div>

@@ -1,10 +1,18 @@
+"use client"
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
-
+import {
+    Carousel,
+    CarouselContent,
+    CarouselItem,
+} from "@/components/ui/carousel";
+import { IoChatbubbleEllipsesOutline } from "react-icons/io5";
+import { MdEmojiPeople } from "react-icons/md";
+import { useState } from "react";
 interface ProductDetailProps {
     productdetail: {
         id: string;
-        image: string;
+        image: Array<string>;
         title: string;
         rating: number;
         ratingText: string;
@@ -12,9 +20,33 @@ interface ProductDetailProps {
         rented: number;
         link: string;
     };
+    reviews: {
+        id: string;
+        category: string;
+        data: {
+            user: string;
+            rating: number;
+            comment: string;
+        }[];
+    }[];
 }
 
-export function ProductDetail({ productdetail }: ProductDetailProps) {
+export function ProductDetail({ productdetail, reviews }: ProductDetailProps) {
+    const [activeCategory, setActiveCategory] = useState("Semua");
+    const [activedays, setActiveDays] = useState("");
+    const [activetime, setActiveTime] = useState(0);
+    const classifyRating = (rating) => {
+        if (rating >= 4.5) return "Sangat Bagus";
+        if (rating >= 3.5) return "Bagus";
+        if (rating >= 2.5) return "Cukup";
+        if (rating >= 1.5) return "Kurang";
+        return "Sangat Kurang";
+    };
+    const allRatings = reviews.flatMap(review => review.data.map(item => item.rating));
+    const averageRating = allRatings.length ? (allRatings.reduce((a, b) => a + b, 0) / allRatings.length).toFixed(1) : "0";
+    const ratingClassification = classifyRating(averageRating);
+    const activeReviews =
+        reviews.find((review) => review.category === activeCategory)?.data || [];
     return (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-10 md:my-16">
             {/* Product Overview */}
@@ -22,48 +54,117 @@ export function ProductDetail({ productdetail }: ProductDetailProps) {
                 {/* Image and Gallery */}
                 <div>
                     <img
-                        src={productdetail.image}
+                        src={productdetail.image[0]}
                         alt={productdetail.title}
                         className="w-full h-auto rounded shadow-sm"
                     />
-                    {/* <div className="flex space-x-2 mt-4">
-            {productdetail.image.map((img, index) => (
-              <img
-                key={index}
-                src={img}
-                alt={`Gallery ${index}`}
-                className="w-16 h-16 object-cover rounded border"
-              />
-            ))}
-          </div> */}
+                    <div className="flex space-x-2 mt-4">
+                        <Carousel className="w-full ">
+                            <CarouselContent className="-ml-1">
+                                {productdetail.image.slice(0).map((img, index) => (
+                                    <CarouselItem key={index} className="pl-1 basis-1/3 md:basis-1/4 lg:basis-1/5">
+                                        <div className="p-1">
+                                            <img
+                                                key={index}
+                                                src={img}
+                                                alt={`Gallery ${index}`}
+                                                className="w-100 h-100 object-cover rounded border"
+                                            />
+                                        </div>
+                                    </CarouselItem>
+                                ))}
+                            </CarouselContent>
+                        </Carousel>
+                    </div>
                 </div>
 
                 {/* Product Info */}
                 <div>
                     <h1 className="text-3xl font-bold mb-2">{productdetail.title}</h1>
-                    <div className="flex flex-row gap-8 flex-wrap items-start mb-4">
-                        <div className="flex flex-col items-start mb-4">
-                            <span className="text-yellow-500 font-semibold text-base">Arif Brata</span>
+                    <div className="text-2xl font-bold text-indigo-600 mb-2">{productdetail.price}</div>
+
+                    {/* desktop */}
+                    <div className="flex flex-col gap-1 flex-wrap items-start">
+                        <div className="hidden flex-row gap-8 items-start lg:flex">
+                            <div className="flex flex-col items-start ">
+                                <span className="text-indigo-600 font-semibold text-base">Arif Brata</span>
+                                <span className="text-gray-500 text-xs">Aktif 10 Menit Lalu</span>
+
+                            </div>
+                            <div className="flex flex-col items-start">
+                                <div className="flex flex-row  justify-between items-start">
+                                    <span className="text-gray-500 text-sm">Penilaian</span>
+                                    <span className="text-indigo-600 text-sm">1 Rb</span>
+                                </div>
+                                <div className="flex flex-row gap-4 justify-between items-start">
+                                    <span className="text-gray-500 text-sm">Jasa</span>
+                                    <span className="text-indigo-600 text-sm">10</span>
+                                </div>
+                            </div>
+                            <div className="flex flex-col items-start mb-4">
+                                <div className="flex flex-row gap-4 items-start">
+                                    <span className="text-gray-500 text-sm">Persentase Chat Dibalas</span>
+                                    <span className="text-indigo-600 text-sm">87%</span>
+                                </div>
+                                <div className="flex flex-row gap-4 items-start">
+                                    <span className="text-gray-500 text-sm">Waktu Chat Dibalas</span>
+                                    <span className="text-indigo-600 text-sm">1 Jam</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="flex flex-row gap-1 my-2 items-start mb-4">
+                            <button
+                                className="px-4 py-1 text-sm gap-2 border border-indigo-600 text-indigo-600 rounded hover:bg-indigo-600 hover:border-indigo-600 hover:text-white transition duration-200 flex items-center"
+                            >
+                                <IoChatbubbleEllipsesOutline />
+                                Chat Sekarang
+                            </button>
+                            <button
+                                className="px-4 py-1 text-sm gap-2 border rounded hover:bg-gray-100 border-gray-400 transition duration-200 flex items-center"
+                            >
+                                <MdEmojiPeople />
+                                Hubungi Penyedia
+                            </button>
+                        </div>
+                    </div>
+
+                    {/* end desktop */}
+                    {/* mobile */}
+                    <div className="flex flex-row gap-1 flex-wrap items-start mb-4">
+                        <div className="flex flex-col items-start mb-4 lg:hidden">
+                            <span className="text-indigo-600 font-semibold text-base">Arif Brata</span>
                             <span className="text-gray-500 text-xs">Aktif 10 Menit Lalu</span>
                             <div className="flex flex-row gap-1 my-2 items-start mb-4">
                                 <button
-                                    className="px-4 py-1 text-sm border rounded hover:bg-gray-100 hover:border-gray-400 transition duration-200"
-                                > Chat Sekarang </button>
+                                    className="px-4 py-1 text-sm gap-2 border border-indigo-600 text-indigo-600 rounded hover:bg-indigo-600 hover:border-indigo-600 hover:text-white transition duration-200 flex items-center"
+                                >
+                                    <IoChatbubbleEllipsesOutline />
+                                    Chat Sekarang
+                                </button>
                                 <button
-                                    className="px-4 py-1 text-sm border rounded hover:bg-gray-100 hover:border-gray-400 transition duration-200"
-                                > Hubungi Penyedia </button>
+                                    className="px-4 py-1 text-sm gap-2 border rounded hover:bg-gray-100 border-gray-400 transition duration-200 flex items-center"
+                                >
+                                    <MdEmojiPeople />
+                                    Hubungi Penyedia
+                                </button>
                             </div>
                         </div>
-                        <div className="flex flex-col items-start mb-4">
-                            <span className="text-yellow-500 font-semibold text-base">Arif Brata</span>
-                            <span className="text-gray-500 text-sm">Aktif 10 Menit Lalu</span>
+                        <div className="flex flex-col items-start mb-4 lg:hidden">
+                            <div className="flex flex-row gap-4 items-start">
+                                <span className="text-gray-500 text-sm">Penilaian</span>
+                                <span className="text-indigo-600 text-sm">1 Rb</span>
+                            </div>
+                            <div className="flex flex-row gap-4 items-start">
+                                <span className="text-gray-500 text-sm">Jasa</span>
+                                <span className="text-indigo-600 text-sm">10</span>
+                            </div>
                         </div>
                     </div>
+                    {/* end mobile */}
                     <div className="flex items-center space-x-2 mb-4">
-                        <span className="text-yellow-500 font-semibold">{productdetail.rating}</span>
-                        <span className="text-gray-500">12 reviews</span>
+                        <span className="text-indigo-600 font-semibold">{productdetail.rating}</span>
+                        <span className="text-gray-500">12 Jasa Review</span>
                     </div>
-                    <div className="text-xl font-bold text-red-600 mb-2">{productdetail.price}</div>
                     <div className="text-gray-700 mb-6">Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio sunt a omnis, vero excepturi illo eligendi voluptates delectus, rem nulla, similique sit. Error ducimus laboriosam impedit neque adipisci, quibusdam quis.</div>
                     {/* Hari */}
                     <div className="mb-4">
@@ -73,7 +174,8 @@ export function ProductDetail({ productdetail }: ProductDetailProps) {
                             {['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'].map((day, index) => (
                                 <button
                                     key={index}
-                                    className="px-4 py-2 border rounded hover:bg-gray-100 hover:border-gray-400 transition duration-200"
+                                    className={`px-4 py-2 border rounded ${activedays === day ? "bg-indigo-600 border-indigo-700 text-white" : "bg-white border-indigo-600 text-indigo-600"}  hover:bg-indigo-600 hover:border-indigo-700 hover:text-white  transition duration-200`}
+                                    onClick={() => setActiveDays(day)}
                                 >
                                     {day}
                                 </button>
@@ -100,7 +202,8 @@ export function ProductDetail({ productdetail }: ProductDetailProps) {
                                 return (
                                     <button
                                         key={i}
-                                        className="px-4 py-2 border rounded hover:bg-gray-100 hover:border-gray-400 transition duration-200"
+                                        className={`px-4 py-2 border rounded ${activetime === time ? "bg-indigo-600 border-indigo-700 text-white" : "bg-white border-indigo-600 text-indigo-600"} hover:bg-indigo-600 hover:border-indigo-700 hover:text-white transition duration-200`}
+                                        onClick={() => setActiveTime(time)}
                                     >
                                         {time}:00
                                     </button>
@@ -125,7 +228,7 @@ export function ProductDetail({ productdetail }: ProductDetailProps) {
 
 
 
-                    <Button className="w-full bg-red-600 text-white hover:bg-red-700">
+                    <Button className="w-full bg-indigo-600 text-white hover:bg-indigo-700">
                         Beli Sekarang
                     </Button>
                 </div>
@@ -143,7 +246,7 @@ export function ProductDetail({ productdetail }: ProductDetailProps) {
                         {['Pengiriman Cepat', 'Layanan Premium', 'Perbaikan Gratis', 'Konsultasi Online', 'Diskon Khusus'].map((service, index) => (
                             <button
                                 key={index}
-                                className="px-4 py-2 border rounded hover:bg-gray-100 hover:border-gray-400 transition duration-200"
+                                className="px-4 py-2 border rounded bg-indigo-600 border-indigo-700 text-white  transition duration-200"
                             >
                                 {service}
                             </button>
@@ -166,27 +269,59 @@ export function ProductDetail({ productdetail }: ProductDetailProps) {
 
             {/* Product Reviews */}
             <div>
-                <h2 className="text-xl font-bold mb-4">Penilaian Produk</h2>
-                {/* Review */}
-                <div className="space-y-6">
-                    {[{ user: 'John', rating: 4.5, comment: 'Produk bagus!' },
-                    { user: 'Jane', rating: 5, comment: 'Sangat memuaskan!' },
-                    { user: 'Doe', rating: 3.5, comment: 'Cukup baik.' }
-                    ].map((review, index) => (
-                        <div key={index} className="border-b pb-4">
-                            <div className="flex items-center mb-2">
-                                <span className="font-semibold">{review.user}</span>
-                                <span className="ml-2 text-yellow-500 flex items-center">
-                                    {'★'.repeat(Math.floor(review.rating)) + '☆'.repeat(5 - Math.ceil(review.rating))}
-                                    <span className="ml-2">{review.rating}</span>
-                                </span>
-                            </div>
-                            <p className="text-gray-600">{review.comment}</p>
-                        </div>
-                    ))}
-                </div>
+                <div className="flex flex-col gap-1 flex-wrap items-start">
+                    <div className="hidden flex-row gap-8 items-start lg:flex">
+                        {/* Product Details */}
+                        <div className="flex flex-col items-start ">
 
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit voluptate quam similique quaerat maiores, quibusdam eligendi. Rem aperiam repellat dicta, adipisci, enim harum at provident dolorum quas, labore doloremque in?</p>
+                            <div className="product-details">
+                                <h1 className="text-2xl font-bold mb-10">Penilaian Produk</h1>
+                                <h1 className="text-md font-semibold">Keseluruhan Review</h1>
+                                <p className="text-xl text-yellow-500"> {averageRating} / 5 ({ratingClassification})</p>
+                                {/* Review Filter */}
+                        <div className="flex flex-col items-start ">
+                            <div className="flex space-x-4 my-4">
+                                {reviews.map((reviewCategory) => (
+                                    <button
+                                        key={reviewCategory.id}
+                                        className={`px-4 py-2  border rounded ${activeCategory === reviewCategory.category
+                                            ? "bg-indigo-600 border-indigo-700 text-white" : "bg-white border-indigo-600 text-indigo-600"
+                                            }`}
+                                        onClick={() => setActiveCategory(reviewCategory.category)}
+                                    >
+                                        {reviewCategory.category}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+                                <p className="text-yellow-500">
+                                    {"★".repeat(Math.floor(productdetail.rating)) +
+                                        "☆".repeat(5 - Math.ceil(productdetail.rating))}
+                                    <span className="ml-2">{productdetail.ratingText}</span>
+                                </p>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                {/* Reviews */}
+                <div className="reviews">
+                    {activeReviews.length > 0 ? (
+                        activeReviews.map((review, index) => (
+                            <div key={index} className="border-b pb-4">
+                                <p className="font-semibold">{review.user}</p>
+                                <p className="text-yellow-500">
+                                    {"★".repeat(Math.floor(review.rating)) +
+                                        "☆".repeat(5 - Math.ceil(review.rating))}
+                                    <span className="ml-2">{review.rating}</span>
+                                </p>
+                                <p>{review.comment}</p>
+                            </div>
+                        ))
+                    ) : (
+                        <p className="text-gray-600">Tidak ada ulasan untuk kategori ini.</p>
+                    )}
+                </div>
             </div>
         </div>
     );
