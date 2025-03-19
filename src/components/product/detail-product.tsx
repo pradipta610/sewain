@@ -9,44 +9,27 @@ import {
 import { IoChatbubbleEllipsesOutline } from "react-icons/io5";
 import { MdEmojiPeople } from "react-icons/md";
 import { useState } from "react";
-interface ProductDetailProps {
-    productdetail: {
-        id: string;
-        image: Array<string>;
-        title: string;
-        rating: number;
-        ratingText: string;
-        price: string;
-        rented: number;
-        link: string;
-    };
-    reviews: {
-        id: string;
-        category: string;
-        data: {
-            user: string;
-            rating: number;
-            comment: string;
-        }[];
-    }[];
-}
+import { useParams } from "next/navigation";
+import { CategoryDetailProps } from "@/types/product";
 
-export function ProductDetail({ productdetail, reviews }: ProductDetailProps) {
+
+export function ProductDetail({ productsCategories }: CategoryDetailProps) {
     const [activeCategory, setActiveCategory] = useState("Semua");
     const [activedays, setActiveDays] = useState("");
     const [activetime, setActiveTime] = useState(0);
-    const classifyRating = (rating) => {
+    const { id } = useParams();
+    const productdetail = productsCategories.flatMap(category => category.products).find(product => product.id === id);
+    const classifyRating = (rating: number) => {
         if (rating >= 4.5) return "Sangat Bagus";
         if (rating >= 3.5) return "Bagus";
         if (rating >= 2.5) return "Cukup";
         if (rating >= 1.5) return "Kurang";
         return "Sangat Kurang";
     };
-    const allRatings = reviews.flatMap(review => review.data.map(item => item.rating));
-    const averageRating = allRatings.length ? (allRatings.reduce((a, b) => a + b, 0) / allRatings.length).toFixed(1) : "0";
+    const allRatings = productdetail?.reviews?.flatMap(review => review.data.map(item => item.rating));
+    const averageRating: number = allRatings?.length ? parseFloat((allRatings.reduce((a, b) => a + b, 0) / allRatings.length).toFixed(1)) : 0;
     const ratingClassification = classifyRating(averageRating);
-    const activeReviews =
-        reviews.find((review) => review.category === activeCategory)?.data || [];
+    const activeReviews = productdetail?.reviews?.find((review) => review.category === activeCategory)?.data || [];
     return (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-10 md:my-16">
             {/* Product Overview */}
@@ -54,14 +37,14 @@ export function ProductDetail({ productdetail, reviews }: ProductDetailProps) {
                 {/* Image and Gallery */}
                 <div>
                     <img
-                        src={productdetail.image[0]}
-                        alt={productdetail.title}
+                        src={productdetail?.image[0]}
+                        alt={productdetail?.name}
                         className="w-full h-auto rounded shadow-sm"
                     />
                     <div className="flex space-x-2 mt-4">
                         <Carousel className="w-full ">
                             <CarouselContent className="-ml-1">
-                                {productdetail.image.slice(0).map((img, index) => (
+                                {productdetail?.image.slice(0).map((img, index) => (
                                     <CarouselItem key={index} className="pl-1 basis-1/3 md:basis-1/4 lg:basis-1/5">
                                         <div className="p-1">
                                             <img
@@ -80,8 +63,8 @@ export function ProductDetail({ productdetail, reviews }: ProductDetailProps) {
 
                 {/* Product Info */}
                 <div>
-                    <h1 className="text-3xl font-bold mb-2">{productdetail.title}</h1>
-                    <div className="text-2xl font-bold text-indigo-600 mb-2">{productdetail.price}</div>
+                    <h1 className="text-3xl font-bold mb-2">{productdetail?.name}</h1>
+                    <div className="text-2xl font-bold text-indigo-600 mb-2">{productdetail?.price}</div>
 
                     {/* desktop */}
                     <div className="flex flex-col gap-1 flex-wrap items-start">
@@ -162,7 +145,7 @@ export function ProductDetail({ productdetail, reviews }: ProductDetailProps) {
                     </div>
                     {/* end mobile */}
                     <div className="flex items-center space-x-2 mb-4">
-                        <span className="text-indigo-600 font-semibold">{productdetail.rating}</span>
+                        <span className="text-indigo-600 font-semibold">{productdetail?.rating}</span>
                         <span className="text-gray-500">12 Jasa Review</span>
                     </div>
                     <div className="text-gray-700 mb-6">Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio sunt a omnis, vero excepturi illo eligendi voluptates delectus, rem nulla, similique sit. Error ducimus laboriosam impedit neque adipisci, quibusdam quis.</div>
@@ -281,7 +264,7 @@ export function ProductDetail({ productdetail, reviews }: ProductDetailProps) {
                                 {/* Review Filter */}
                         <div className="flex flex-col items-start ">
                             <div className="flex space-x-4 my-4">
-                                {reviews.map((reviewCategory) => (
+                                {productdetail?.reviews?.map((reviewCategory) => (
                                     <button
                                         key={reviewCategory.id}
                                         className={`px-4 py-2  border rounded ${activeCategory === reviewCategory.category
@@ -295,9 +278,9 @@ export function ProductDetail({ productdetail, reviews }: ProductDetailProps) {
                             </div>
                         </div>
                                 <p className="text-yellow-500">
-                                    {"★".repeat(Math.floor(productdetail.rating)) +
-                                        "☆".repeat(5 - Math.ceil(productdetail.rating))}
-                                    <span className="ml-2">{productdetail.ratingText}</span>
+                                    {"★".repeat(Math.floor(productdetail?.rating ? productdetail?.rating : 0)) +
+                                        "☆".repeat(5 - Math.ceil(productdetail?.rating ? productdetail?.rating : 0))}
+                                    <span className="ml-2">{productdetail?.ratingText ? productdetail.ratingText : 0}</span>
                                 </p>
                             </div>
                         </div>
