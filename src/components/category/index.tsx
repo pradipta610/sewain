@@ -6,11 +6,9 @@ import Image from "next/image";
 interface CategoryProps {
     categories: {
         id: string;
+        name: string;
         image: string;
-        title: string;
-        price: string;
-        quantity: number;
-        link: string;
+        slug: string;
     }[];
 }
 
@@ -27,11 +25,11 @@ export function Category({ categories }: CategoryProps) {
                 <div className="grid  grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-4">
                     {categories.map((category) => (
                         <Card key={category.id} className="shadow-sm hover:shadow-md transition rounded-lg">
-                            <Link href={category.link} className="p-4 flex items-center">
+                            <Link href={`/product/category/${category.slug}`} className="p-4 flex items-center">
                                 <div className="w-1/3 h-20 overflow-hidden rounded-lg">
                                     <Image
                                         src={category.image}
-                                        alt={category.title}
+                                        alt={category.name}
                                         className="w-full h-32 object-cover rounded-t"
                                         width={400}
                                         height={400}
@@ -39,10 +37,7 @@ export function Category({ categories }: CategoryProps) {
                                 </div>
                                 <div className="ml-4 flex-1">
                                     <div className="text-base font-semibold text-gray-800 truncate">
-                                        {category.title}
-                                    </div>
-                                    <div className="mt-2 text-sm font-medium text-gray-800">
-                                        {category.price}
+                                        {category.name}
                                     </div>
                                 </div>
                             </Link>
@@ -62,16 +57,16 @@ export function Category({ categories }: CategoryProps) {
                     <div className="flex w-max space-x-4 p-0">
                         {categories.map((category) => (
                             <Card key={category.id} className="shadow-sm hover:shadow-md w-40 transition">
-                                <Link href={category.link}>
+                                <Link href={`/product/category/${category.slug}`}>
                                     <CardHeader className="p-0">
                                         <img
                                             src={category.image}
-                                            alt={category.title}
+                                            alt={category.name}
                                             className=" w-full p-0 h-24 object-cover rounded-t"
                                         />
                                     </CardHeader>
                                     <CardContent>
-                                        <span className="font-medium text-gray-800">{category.title}</span>
+                                        <span className="font-medium text-gray-800">{category.name}</span>
                                     </CardContent>
                                 </Link>
                             </Card>
