@@ -1,12 +1,12 @@
 import { Category } from "@/components/category/index";
 import { Product } from "@/components/product/index";
-import { productsCategories, categories } from "@/data/categoriesData";
+import { productsCategories } from "@/data/categoriesData";
 
 export default function Home() {
 
   return (
     <>
-      <Category categories={categories} />
+      <Category productsCategories={productsCategories} />
       <Product productsCategories={productsCategories} />
     </>
   );
