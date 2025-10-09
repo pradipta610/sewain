@@ -32,3 +32,15 @@ export interface Reviews {
         comment: string;
     }[];
 }
+
+export interface CartItems {
+    id: string;
+    productId: string;
+    name: string;
+    image: string; // satu gambar aja cukup untuk di cart
+    price: number;
+    quantity: number;
+    subtotal: number; // auto: price * quantity
+    categoryId: string;
+    categoryName: string;
+  };

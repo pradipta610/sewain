@@ -783,3 +783,42 @@ export const categories = [
       "https://images.unsplash.com/photo-1617854818583-09e7f077a156?q=80&w=3270&auto=format&fit=crop",
   },
 ];
+
+  export const cartItems = [
+    {
+      id: "1",
+      productId: "10",
+      name: "Projector",
+      image:
+        "https://images.unsplash.com/photo-1617854818583-09e7f077a156?q=80&w=3270&auto=format&fit=crop",
+      price: 600000,
+      quantity: 1,
+      subtotal: 600000,
+      categoryId: "cat-5",
+      categoryName: "Projectors & Displays",
+    },
+    {
+      id: "2",
+      productId: "10",
+      name: "Projector",
+      image:
+        "https://images.unsplash.com/photo-1617854818583-09e7f077a156?q=80&w=3270&auto=format&fit=crop",
+      price: 600000,
+      quantity: 2,
+      subtotal: 1200000,
+      categoryId: "cat-5",
+      categoryName: "Projectors & Displays",
+    },
+    {
+      id: "3",
+      productId: "10",
+      name: "Projector",
+      image:
+        "https://images.unsplash.com/photo-1617854818583-09e7f077a156?q=80&w=3270&auto=format&fit=crop",
+      price: 600000,
+      quantity: 3,
+      subtotal: 1800000,
+      categoryId: "cat-5",
+      categoryName: "Projectors & Displays",
+    },
+  ];
