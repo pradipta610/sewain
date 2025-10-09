@@ -6,15 +6,25 @@ import Link from "next/link";
 import { CategoryDetailProps } from "@/types/product";
 
 
-export function Product({ productsCategories }: CategoryDetailProps) {
+export function AllProduct({ productsCategories }: CategoryDetailProps) {
+    const backgroundImage = productsCategories.flatMap(category => category.products).flatMap(product => product.image);
+    console.log("this is image mwehehe", backgroundImage[0])
     return (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-10 md:my-16">
-            <h2 className="mb-6 text-lg sm:text-xl lg:text-2xl font-bold">
-                Rekomendasi Produk
-                <Link href="/product/all-product" className="ml-4 text-sm text-red-600 hover:underline">
-                    Muat Lainnya
-                </Link>
-            </h2>
+            <div className="relative w-full h-[200px] overflow-hidden rounded-lg shadow-md mb-20">
+                    <Image
+                        src={backgroundImage[0]}
+                        alt="all category sewain"
+                        layout="fill"
+                        objectFit="cover"
+                        className="opacity-70"
+                    />
+                    <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                        <h2 className="text-white text-xl sm:text-2xl lg:text-3xl font-bold">
+                            All Products
+                        </h2>
+                    </div>
+                </div>
             <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
             {productsCategories?.flatMap(category => category.products).map(product => (
                     <Card key={product.id} className="shadow-sm hover:shadow-md transition">

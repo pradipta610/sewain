@@ -3,6 +3,8 @@ export const productsCategories = [
     id: "cat-1",
     name: "Cameras & Accessories",
     slug: "cameras-accessories",
+    image:
+    "https://images.unsplash.com/photo-1617854818583-09e7f077a156?q=80&w=3270&auto=format&fit=crop",
     products: [
       {
         id: "1",
@@ -295,6 +297,8 @@ export const productsCategories = [
     id: "cat-2",
     name: "Laptops & Computers",
     slug: "laptops-computers",
+    image:
+    "https://images.unsplash.com/photo-1617854818583-09e7f077a156?q=80&w=3270&auto=format&fit=crop",
     products: [
       {
         id: "3",
@@ -473,6 +477,8 @@ export const productsCategories = [
     id: "cat-3",
     name: "Lighting & Accessories",
     slug: "lighting-accessories",
+    image:
+    "https://images.unsplash.com/photo-1617854818583-09e7f077a156?q=80&w=3270&auto=format&fit=crop",
     products: [
       {
         id: "5",
@@ -537,6 +543,8 @@ export const productsCategories = [
     id: "cat-4",
     name: "Audio Equipment",
     slug: "audio-equipment",
+    image:
+    "https://images.unsplash.com/photo-1617854818583-09e7f077a156?q=80&w=3270&auto=format&fit=crop",
     products: [
       {
         id: "6",
@@ -601,6 +609,8 @@ export const productsCategories = [
     id: "cat-5",
     name: "Projectors & Displays",
     slug: "projectors-displays",
+    image:
+    "https://images.unsplash.com/photo-1617854818583-09e7f077a156?q=80&w=3270&auto=format&fit=crop",
     products: [
       {
         id: "10",
@@ -665,6 +675,8 @@ export const productsCategories = [
     id: "cat-6",
     name: "Office Equipment",
     slug: "office-equipment",
+    image:
+    "https://images.unsplash.com/photo-1617854818583-09e7f077a156?q=80&w=3270&auto=format&fit=crop",
     products: [
       {
         id: "11",
@@ -771,3 +783,42 @@ export const categories = [
       "https://images.unsplash.com/photo-1617854818583-09e7f077a156?q=80&w=3270&auto=format&fit=crop",
   },
 ];
+
+  export const cartItems = [
+    {
+      id: "1",
+      productId: "10",
+      name: "Projector",
+      image:
+        "https://images.unsplash.com/photo-1617854818583-09e7f077a156?q=80&w=3270&auto=format&fit=crop",
+      price: 600000,
+      quantity: 1,
+      subtotal: 600000,
+      categoryId: "cat-5",
+      categoryName: "Projectors & Displays",
+    },
+    {
+      id: "2",
+      productId: "10",
+      name: "Projector",
+      image:
+        "https://images.unsplash.com/photo-1617854818583-09e7f077a156?q=80&w=3270&auto=format&fit=crop",
+      price: 600000,
+      quantity: 2,
+      subtotal: 1200000,
+      categoryId: "cat-5",
+      categoryName: "Projectors & Displays",
+    },
+    {
+      id: "3",
+      productId: "10",
+      name: "Projector",
+      image:
+        "https://images.unsplash.com/photo-1617854818583-09e7f077a156?q=80&w=3270&auto=format&fit=crop",
+      price: 600000,
+      quantity: 3,
+      subtotal: 1800000,
+      categoryId: "cat-5",
+      categoryName: "Projectors & Displays",
+    },
+  ];
