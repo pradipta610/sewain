@@ -23,9 +23,9 @@ export default function Navbar({ className }: AddClassName) {
   return (
     <nav
       className={`
-        sticky top-0 z-50 mb-[-100px]
+        sticky top-0 z-50
         transition-all duration-300 ease-in-out
-        backdrop-blur  bg-transparent
+        backdrop-blur supports-[backdrop-filter]:bg-background/50
         ${scrolled ? "bg-background/90 border-b border-border/50 shadow-sm" : "bg-transparent"}
         ${className || ""}
       `}
